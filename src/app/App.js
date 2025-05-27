@@ -8,6 +8,7 @@ import Quiz from "../features/quizzes/Quiz";
 import Quizzes from "../features/quizzes/Quizzes";
 import AppLayout from "./AppLayout";
 import RandomQuiz from "../features/quizzes/RandomQuiz";
+import FavoriteQuiz from "../features/favorites/FavoriteQuiz";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="quizzes/new" element={<NewQuizForm />} />
           <Route path="quizzes/:quizId" element={<Quiz />} />
           <Route path="/random-quiz" element={<RandomQuiz />} />
+          <Route path="/favorite-quiz" element={<FavoriteQuiz />} />
         </Route>
       </Routes>
     </BrowserRouter>

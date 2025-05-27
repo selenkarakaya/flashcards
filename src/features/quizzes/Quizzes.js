@@ -11,6 +11,9 @@ export default function Quizzes() {
       <Link to={ROUTES.randomQuizRoute()} className="button">
         Random Quiz
       </Link>
+      <Link to={ROUTES.favoriteQuizRoute()} className="button">
+        Start Favorite Quiz
+      </Link>
       <h1>Quizzes</h1>
       <ul className="quizzes-list">
         {Object.values(quizzes).map((quiz) => (

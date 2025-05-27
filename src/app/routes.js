@@ -6,6 +6,7 @@ const ROUTES = {
   topicRoute: (id) => `/topics/${id}`,
   topicsRoute: () => "/topics",
   randomQuizRoute: () => "/random-quiz",
+  favoriteQuizRoute: () => "/favorite-quiz",
 };
 
 export default ROUTES;
