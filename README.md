@@ -45,7 +45,7 @@ Supports **random quiz generation**, **favorite cards**, and **interactive card 
 ```bash
 src/
 ├── app/
-|   ├── App.js
+│   ├── App.js
 │   └── store.js
 ├── components/
 │   ├── NewTopicForm.js
@@ -56,12 +56,12 @@ src/
 │   │   └── cardsSlice.js
 │   ├── favorites/           # ✅ Custom Feature
 │   │   └── favoritesSlice.js
-|   |   └── FavoriteQuiz.js      # ✅ Custom Component
+│   │   └── FavoriteQuiz.js      # ✅ Custom Component
 │   ├── quizzes/
 │   │   ├── Quiz.js
 │   │   ├── Quizzes.js
 │   │   └── quizzesSlice.js
-|   |   └── RandomQuiz.js        # ✅ Custom Component
+│   │   └── RandomQuiz.js        # ✅ Custom Component
 │   └── topics/
 │       ├── Topic.js
 │       ├── Topics.js
