@@ -5,8 +5,12 @@ import ROUTES from "../../app/routes";
 
 export default function Quizzes() {
   const quizzes = useSelector((state) => state.quizzes.quizzes);
+
   return (
     <section className="center">
+      <Link to={ROUTES.randomQuizRoute()} className="button">
+        Random Quiz
+      </Link>
       <h1>Quizzes</h1>
       <ul className="quizzes-list">
         {Object.values(quizzes).map((quiz) => (
