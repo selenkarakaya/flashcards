@@ -1,70 +1,178 @@
-# Getting Started with Create React App
+# 📚 Flashcards App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A Redux-powered flashcard quiz app where users can create topics, quizzes, and flip flashcards.  
+Supports **random quiz generation**, **favorite cards**, and **interactive card flipping**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- 🧠 Create topics (e.g., Math, Biology)
+- 📝 Create quizzes under topics with custom flashcards
+- 🔄 Flip cards to reveal answers
+- 🎲 Generate random quizzes with a mix of cards from all topics
+- ❤️ Favorite any card and generate a quiz using only your favorite cards
+- 🔎 View quizzes per topic or view all quizzes at once
+- 🧩 Redux Toolkit for clean, scalable state management
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🆕 Additional Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### 🎲 Random Quiz Mode
 
-### `npm test`
+- A new route (`/random-quiz`) renders a randomized set of cards across all topics and quizzes.
+- Questions and order are shuffled each time.
+- Number of cards shown is also random for added challenge.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+#### ❤️ Favorite Cards
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Each card has a heart icon.
+- Clicking toggles its "favorite" status.
+- A new route (`/favorite-quiz`) renders a quiz **only using favorited cards**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
+#### ✨ UI Enhancements
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- A heart button (❤️ / 🤍) is visible on every card.
+- A button to generate a quiz from favorite cards is available on the **Quizzes** page.
+- All new components are seamlessly integrated with the Redux store.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🗂️ Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+src/
+├── app/
+|   ├── App.js
+│   └── store.js
+├── components/
+│   ├── NewTopicForm.js
+│   ├── NewQuizForm.js
+├── features/
+│   ├── cards/
+│   │   ├── Card.js
+│   │   └── cardsSlice.js
+│   ├── favorites/           # ✅ Custom Feature
+│   │   └── favoritesSlice.js
+|   |   └── FavoriteQuiz.js      # ✅ Custom Component
+│   ├── quizzes/
+│   │   ├── Quiz.js
+│   │   ├── Quizzes.js
+│   │   └── quizzesSlice.js
+|   |   └── RandomQuiz.js        # ✅ Custom Component
+│   └── topics/
+│       ├── Topic.js
+│       ├── Topics.js
+│       └── topicsSlice.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🧩 Redux State Design
 
-## Learn More
+```json
+{
+  "topics": {
+    "topics": {
+      "math": {
+        "id": "math",
+        "name": "Mathematics",
+        "icon": "📐",
+        "quizIds": ["quiz1"]
+      }
+    }
+  },
+  "quizzes": {
+    "quizzes": {
+      "quiz1": {
+        "id": "quiz1",
+        "topicId": "math",
+        "name": "Algebra Basics",
+        "cardIds": ["card1", "card2"]
+      }
+    }
+  },
+  "cards": {
+    "cards": {
+      "card1": {
+        "id": "card1",
+        "front": "2 + 2",
+        "back": "4"
+      }
+    }
+  },
+  "favorites": {
+    "cardIds": ["card1"]
+  }
+}
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Setup & Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install
+npm start
+```
+---
 
-### Code Splitting
+### 🧪 Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **React** ⚛️  
+- **Redux Toolkit** 🧰  
+- **React Redux** 🔄  
+- **React Router** 🛤️  
+- **UUID** 🔑  
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### ✅ Requirements Fulfilled
 
-### Making a Progressive Web App
+- Topic, quiz, and card slices were created  
+- Dynamic routing was implemented  
+- Forms support adding and removing content  
+- Relationships between `cardIds`, `quizIds`, and `topicId` were established  
+- Flashcard flip functionality was added  
+- Extra Feature: **Random Quiz** ✅  
+- Extra Feature: **Favorite Cards & Favorite Quiz** ✅  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+### 🚀 Live Demo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Check out the live version of the app here:  
+🔗 [makequizzes.netlify.app](https://makequizzes.netlify.app)
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 🧠 Learnings
 
-### `npm run build` fails to minify
+- Efficient state management using Redux state normalization  
+- Dynamic routing and building UI based on current route  
+- Conditional rendering with fallback handling (e.g. missing quiz/cards)  
+- Structuring scalable React + Redux projects  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+### 🏁 Future Improvements
+
+- 🌐 Persisting favorite cards in **LocalStorage**  
+- 📊 Adding **quiz scores** and attempt **history tracking**  
+- 🔔 Providing **feedback for correct/incorrect answers**  
+- 🔤 Implementing **search and filter** functionality for quizzes and cards
+
+---
+
+
+### 👤 Author
+
+Built as part of **Codecademy’s Redux Flashcards Challenge Project** with additional custom features.
+
+🛠 Maintained by **Selen Karakaya**  
+📫 [selennurkarakayaa@gmail.com](mailto:selennurkarakayaa@gmail.com)  
+🐙 [github.com/selenkarakaya](https://github.com/selenkarakaya)  
+📌 [LinkedIn](https://www.linkedin.com/in/selenkarakaya/)  
+🌍 [Portfolio Website](https://selenkarakaya.netlify.app/)  
+
+
