@@ -3,39 +3,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
-import { addQuizIdToTopic, selectTopics } from "../features/topics/topicsSlice";
+import { addQuizIdToTopic } from "../features/topics/topicsSlice";
 import { addCard } from "../features/cards/cardsSlice";
 import { addQuiz } from "../features/quizzes/quizzesSlice";
 // import selectors
 
 export default function NewQuizForm() {
-  const [name, setName] = useState("");
-  const [cards, setCards] = useState([]);
-  const [topicId, setTopicId] = useState("");
-  const navigate = useNavigate();
-  const topics = useSelector(selectTopics); // Replace with topics
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const topics = useSelector((state) => state.topics.topics);
+
+  const [name, setName] = useState("");
+  const [topicId, setTopicId] = useState("");
+  const [cards, setCards] = useState([{ front: "", back: "" }]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name.trim() === "" || topicId === "") {
-      alert("The quiz title and topic selection are required!");
+    if (!name.trim() || !topicId || cards.length === 0) {
+      alert("Please fill all fields and add at least one card.");
       return;
     }
-
-    if (cards.length === 0) {
-      alert("You must add at least one card!");
-      return;
-    }
-
-    const cardIds = [];
 
     // create the new cards here and add each card's id to cardIds
-    cards.forEach(({ front, back }) => {
-      const cardId = uuidv4();
-      dispatch(addCard({ id: cardId, front, back }));
-      cardIds.push(cardId);
+    const cardIds = cards.map((card) => {
+      const id = uuidv4();
+      dispatch(addCard({ id, front: card.front, back: card.back }));
+      return id;
     });
     // create the new quiz here
 
@@ -43,7 +37,7 @@ export default function NewQuizForm() {
     dispatch(addQuiz({ id: quizId, name, topicId, cardIds }));
     // dispatch add quiz action
     dispatch(addQuizIdToTopic({ topicId, quizId }));
-    navigate(ROUTES.quizzesRoute());
+    navigate(ROUTES.topicsRoute());
   };
 
   const addCardInputs = (e) => {
