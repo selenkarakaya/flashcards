@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ROUTES from "../app/routes";
+import { addQuizIdToTopic, selectTopics } from "../features/topics/topicsSlice";
+import { addCard } from "../features/cards/cardsSlice";
+import { addQuiz } from "../features/quizzes/quizzesSlice";
 // import selectors
 
 export default function NewQuizForm() {
@@ -10,39 +13,51 @@ export default function NewQuizForm() {
   const [cards, setCards] = useState([]);
   const [topicId, setTopicId] = useState("");
   const navigate = useNavigate();
-  const topics = {};  // Replace with topics 
+  const topics = useSelector(selectTopics); // Replace with topics
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name.length === 0) {
+
+    if (name.trim() === "" || topicId === "") {
+      alert("The quiz title and topic selection are required!");
+      return;
+    }
+
+    if (cards.length === 0) {
+      alert("You must add at least one card!");
       return;
     }
 
     const cardIds = [];
 
     // create the new cards here and add each card's id to cardIds
+    cards.forEach(({ front, back }) => {
+      const cardId = uuidv4();
+      dispatch(addCard({ id: cardId, front, back }));
+      cardIds.push(cardId);
+    });
     // create the new quiz here
 
     const quizId = uuidv4();
-
-    // dispatch add quiz action 
-
-    navigate(ROUTES.quizzesRoute())
+    dispatch(addQuiz({ id: quizId, name, topicId, cardIds }));
+    // dispatch add quiz action
+    dispatch(addQuizIdToTopic({ topicId, quizId }));
+    navigate(ROUTES.quizzesRoute());
   };
 
   const addCardInputs = (e) => {
     e.preventDefault();
-    setCards(cards.concat({ front: "", back: "" }));
+    setCards([...cards, { front: "", back: "" }]);
   };
 
   const removeCard = (e, index) => {
     e.preventDefault();
-    setCards(cards.filter((card, i) => index !== i));
+    setCards(cards.filter((_, i) => i !== index));
   };
 
   const updateCardState = (index, side, value) => {
-    const newCards = cards.slice();
+    const newCards = [...cards];
     newCards[index][side] = value;
     setCards(newCards);
   };
